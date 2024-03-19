@@ -3,6 +3,7 @@ package riccardogulin.dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import riccardogulin.entities.Student;
+import riccardogulin.exceptions.NotFoundException;
 
 public class StudentsDAO {
 	// DAO (Data Access Object) è un Design Pattern. Questa classe ci serve per
@@ -31,7 +32,11 @@ public class StudentsDAO {
 		System.out.println("Studente " + student.getName() + " salvato correttamente!");
 	}
 
-/*	public Student findById(long studentId){}*/
+	public Student findById(long studentId){
+		Student student = em.find(Student.class, studentId); // Primo parametro è la classe dell'entity, secondo è l'id da cercare
+		if(student == null) throw new NotFoundException(studentId);
+		return student;
+	}
 
 	public void findByIdAndDelete(long studentId){}
 }

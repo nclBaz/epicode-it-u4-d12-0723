@@ -6,6 +6,7 @@ import jakarta.persistence.Persistence;
 import riccardogulin.dao.StudentsDAO;
 import riccardogulin.entities.Student;
 import riccardogulin.entities.StudentType;
+import riccardogulin.exceptions.NotFoundException;
 
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("u4d12");
@@ -14,14 +15,21 @@ public class Application {
         EntityManager em = emf.createEntityManager();
         StudentsDAO sd = new StudentsDAO(em);
 
-        Student aldo = new Student("Aldo", "Baglio", StudentType.BACKEND);
+/*        Student aldo = new Student("Aldo", "Baglio", StudentType.BACKEND);
         Student giovanni = new Student("Giovanni", "Storti", StudentType.FRONTEND);
-        Student giacomo = new Student("Giacomo", "Poretti", StudentType.FULLSTACK);
+        Student giacomo = new Student("Giacomo", "Poretti", StudentType.FULLSTACK);*/
 
         // ************************************* SAVE *************************************
-        sd.save(aldo);
+ /*       sd.save(aldo);
         sd.save(giovanni);
-        sd.save(giacomo);
+        sd.save(giacomo);*/
+        try {
+            Student aldo = sd.findById(11);
+            System.out.println(aldo);
+        } catch (NotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+
 
 
 
