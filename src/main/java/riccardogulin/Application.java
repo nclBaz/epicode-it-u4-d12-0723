@@ -30,9 +30,11 @@ public class Application {
             System.out.println(ex.getMessage());
         }
 
-
-
-
+        try {
+            sd.findByIdAndDelete(3);
+        } catch (NotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
 
         // Anche se nelle nostre applicazioni non è espressamente richiesto, sarebbe sempre bene alla fine di tutto
         // chiudere entitymanager & factory

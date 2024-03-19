@@ -38,5 +38,23 @@ public class StudentsDAO {
 		return student;
 	}
 
-	public void findByIdAndDelete(long studentId){}
+	public void findByIdAndDelete(long studentId){
+		// 0. Cerco lo studente nel db
+		Student found = this.findById(studentId);
+
+		// 1. Richiedo all'entity manager una nuova transazione
+		EntityTransaction transaction = em.getTransaction();
+
+		// 2. Inizio la transazione
+		transaction.begin();
+
+		// 3. Rimuovo lo studente dal Persistence Context (in questo momento non l'ho ancora effettivamente cancellato dal DB)
+		em.remove(found);
+
+		// 4. Concludo la transazione con l'effettivo salvataggio a db
+		transaction.commit();
+		System.out.println("Studente con id " + found.getId() + " eliminato correttamente!");
+
+
+	}
 }
